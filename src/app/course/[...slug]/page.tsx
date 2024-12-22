@@ -7,7 +7,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
-type Props = {
+type CoursePageProps = {
   params: {
     slug: string[];
   };
