@@ -1,13 +1,11 @@
 import { getAuthSession } from "@/lib/auth";
-import React from "react";
 import { redirect } from "next/navigation";
 import { InfoIcon } from "lucide-react";
 import CreateCourseForm from "@/components/CreateCourseForm";
 import { checkSubscription } from "@/lib/subscription";
 
-type Props = {};
 
-const CreatePage = async (props: Props) => {
+const CreatePage = async () => {
   const session = await getAuthSession();
   if (!session?.user) {
     return redirect("/gallery");

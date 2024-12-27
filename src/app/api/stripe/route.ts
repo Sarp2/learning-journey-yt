@@ -9,7 +9,7 @@ export async function GET() {
   try {
     const session = await getAuthSession();
     if (!session?.user) {
-      return new NextResponse("unauthorised", { status: 401 });
+      return new NextResponse("unauthorized", { status: 401 });
     }
 
     const userSubscription = await prisma.userSubscription.findUnique({

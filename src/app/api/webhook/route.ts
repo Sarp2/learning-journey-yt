@@ -3,6 +3,7 @@ import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = headers().get("Stripe-Signature") as string;
@@ -14,7 +15,7 @@ export async function POST(req: Request) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET as string
     );
-  } catch (error: any) {
+  } catch (error) {
     return new NextResponse("webhook error", { status: 400 });
   }
 
@@ -26,7 +27,7 @@ export async function POST(req: Request) {
       session.subscription as string
     );
     if (!session?.metadata?.userId) {
-      return new NextResponse("webhook error, no userid", { status: 400 });
+      return new NextResponse("webhook error, no userId", { status: 400 });
     }
     await prisma.userSubscription.create({
       data: {

@@ -5,15 +5,14 @@ import { prisma } from "@/lib/db";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import React from "react";
 
-type Props = {
+type CoursePageProps = {
   params: {
     slug: string[];
   };
 };
 
-const CoursePage = async ({ params: { slug } }: Props) => {
+const CoursePage = async ({ params: { slug } }: CoursePageProps) => {
   const [courseId, unitIndexParam, chapterIndexParam] = slug;
   const course = await prisma.course.findUnique({
     where: { id: courseId },
@@ -45,7 +44,7 @@ const CoursePage = async ({ params: { slug } }: Props) => {
   const prevChapter = unit.chapters[chapterIndex - 1];
   return (
     <div>
-      <CourseSideBar course={course} currentChapterId={chapter.id} />;
+      <CourseSideBar course={course} currentChapterId={chapter.id} />
       <div>
         <div className="ml-[400px] px-8">
           <div className="flex">
