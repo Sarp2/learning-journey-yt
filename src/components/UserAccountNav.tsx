@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,16 +8,18 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
+
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
+
 import { LogOut } from "lucide-react";
 import UserAvatar from "./UserAvatar";
 
-type Props = {
+type UserAccountNavProps = {
   user: User;
 };
 
-const UserAccountNav = ({ user }: Props) => {
+const UserAccountNav = ({ user }: UserAccountNavProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>

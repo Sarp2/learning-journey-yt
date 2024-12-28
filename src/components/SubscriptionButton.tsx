@@ -3,10 +3,11 @@ import React from "react";
 import { Button } from "./ui/button";
 import axios from "axios";
 
-type Props = { isPro: boolean };
+type SubscriptionButtonProps = { isPro: boolean };
 
-const SubscriptionButton = ({ isPro }: Props) => {
+const SubscriptionButton = ({ isPro }: SubscriptionButtonProps) => {
   const [loading, setLoading] = React.useState(false);
+  
   const handleSubscribe = async () => {
     setLoading(true);
     try {

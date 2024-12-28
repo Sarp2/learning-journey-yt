@@ -1,9 +1,8 @@
 import { Chapter, Course, Unit } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
-type Props = {
+type GalleryCourseCardProps = {
   course: Course & {
     units: (Unit & {
       chapters: Chapter[];
@@ -11,9 +10,8 @@ type Props = {
   };
 };
 
-const GalleryCourseCard = async ({ course }: Props) => {
+const GalleryCourseCard = ({ course }: GalleryCourseCardProps) => {
   return (
-    <>
       <div className="border rounded-lg border-secondary">
         <div className="relative">
           <Link
@@ -50,7 +48,6 @@ const GalleryCourseCard = async ({ course }: Props) => {
           </div>
         </div>
       </div>
-    </>
   );
 };
 

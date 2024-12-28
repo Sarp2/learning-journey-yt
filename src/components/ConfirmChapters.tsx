@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button, buttonVariants } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-type Props = {
+type ConfirmChaptersProps = {
   course: Course & {
     units: (Unit & {
       chapters: Chapter[];
@@ -15,8 +15,12 @@ type Props = {
   };
 };
 
-const ConfirmChapters = ({ course }: Props) => {
+const ConfirmChapters = ({ course }: ConfirmChaptersProps) => {
   const [loading, setLoading] = React.useState(false);
+  const [completedChapters, setCompletedChapters] = React.useState<Set<String>>(
+    new Set()
+  );
+  
   const chapterRefs: Record<string, React.RefObject<ChapterCardHandler>> = {};
   course.units.forEach((unit) => {
     unit.chapters.forEach((chapter) => {
@@ -24,15 +28,13 @@ const ConfirmChapters = ({ course }: Props) => {
       chapterRefs[chapter.id] = React.useRef(null);
     });
   });
-  const [completedChapters, setCompletedChapters] = React.useState<Set<String>>(
-    new Set()
-  );
+  
   const totalChaptersCount = React.useMemo(() => {
     return course.units.reduce((acc, unit) => {
       return acc + unit.chapters.length;
     }, 0);
   }, [course.units]);
-  console.log(totalChaptersCount, completedChapters.size);
+  
   return (
     <div className="w-full mt-4">
       {course.units.map((unit, unitIndex) => {

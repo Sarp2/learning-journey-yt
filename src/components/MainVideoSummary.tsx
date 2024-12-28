@@ -1,7 +1,6 @@
 import { Chapter, Unit } from "@prisma/client";
-import React from "react";
 
-type Props = {
+type MainVideoSummaryProps = {
   chapter: Chapter;
   unit: Unit;
   unitIndex: number;
@@ -13,7 +12,7 @@ const MainVideoSummary = ({
   unitIndex,
   chapter,
   chapterIndex,
-}: Props) => {
+}: MainVideoSummaryProps) => {
   return (
     <div className="flex-[2] mt-16">
       <h4 className="text-sm uppercase text-secondary-foreground/60">

@@ -1,13 +1,12 @@
-import React from "react";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { User } from "next-auth";
 import Image from "next/image";
 
-type Props = {
+type UserAvatarProps = {
   user: User;
 };
 
-const UserAvatar = ({ user }: Props) => {
+const UserAvatar = ({ user }: UserAvatarProps) => {
   return (
     <Avatar>
       {user.image ? (

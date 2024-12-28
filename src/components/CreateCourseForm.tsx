@@ -1,26 +1,31 @@
 "use client";
-import React from "react";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+
 import { z } from "zod";
-import { createChaptersSchema } from "@/validators/course";
+import axios from "axios";
+
 import { useForm } from "react-hook-form";
+import { Plus, Trash } from "lucide-react";
+
+import { createChaptersSchema } from "@/validators/course";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
-import { Plus, Trash } from "lucide-react";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import { useToast } from "./ui/use-toast";
+
+import SubscriptionAction from "./SubscriptionAction";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
-import SubscriptionAction from "./SubscriptionAction";
 
-type Props = { isPro: boolean };
+
+type CreateCourseFormProps = { isPro: boolean };
 
 type Input = z.infer<typeof createChaptersSchema>;
 
-const CreateCourseForm = ({ isPro }: Props) => {
+const CreateCourseForm = ({ isPro }: CreateCourseFormProps) => {
   const router = useRouter();
   const { toast } = useToast();
   const { mutate: createChapters, isLoading } = useMutation({
@@ -32,6 +37,7 @@ const CreateCourseForm = ({ isPro }: Props) => {
       return response.data;
     },
   });
+  
   const form = useForm<Input>({
     resolver: zodResolver(createChaptersSchema),
     defaultValues: {
@@ -40,7 +46,7 @@ const CreateCourseForm = ({ isPro }: Props) => {
     },
   });
 
-  function onSubmit(data: Input) {
+  const onSubmit = (data: Input) => {
     if (data.units.some((unit) => unit === "")) {
       toast({
         title: "Error",
@@ -49,6 +55,7 @@ const CreateCourseForm = ({ isPro }: Props) => {
       });
       return;
     }
+
     createChapters(data, {
       onSuccess: ({ course_id }) => {
         toast({

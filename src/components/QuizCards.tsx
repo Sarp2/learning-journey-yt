@@ -1,28 +1,33 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { Chapter, Question } from "@prisma/client";
 import React from "react";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Label } from "./ui/label";
-import { Button } from "./ui/button";
 import { ChevronRight } from "lucide-react";
 
-type Props = {
+import { Label } from "./ui/label";
+import { Button } from "./ui/button";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+
+import { cn } from "@/lib/utils";
+import { Chapter, Question } from "@prisma/client";
+
+
+type QuizCardsProps = {
   chapter: Chapter & {
     questions: Question[];
   };
 };
 
-const QuizCards = ({ chapter }: Props) => {
+const QuizCards = ({ chapter }: QuizCardsProps) => {
   const [answers, setAnswers] = React.useState<Record<string, string>>({});
   const [questionState, setQuestionState] = React.useState<
     Record<string, boolean | null>
   >({});
   const checkAnswer = React.useCallback(() => {
     const newQuestionState = { ...questionState };
+    
     chapter.questions.forEach((question) => {
       const user_answer = answers[question.id];
       if (!user_answer) return;
+      
       if (user_answer === question.answer) {
         newQuestionState[question.id] = true;
       } else {
@@ -31,6 +36,7 @@ const QuizCards = ({ chapter }: Props) => {
       setQuestionState(newQuestionState);
     });
   }, [answers, questionState, chapter.questions]);
+  
   return (
     <div className="flex-[1] mt-16 ml-8">
       <h1 className="text-2xl font-bold">Concept Check</h1>

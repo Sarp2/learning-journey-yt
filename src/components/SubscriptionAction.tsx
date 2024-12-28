@@ -1,18 +1,21 @@
 "use client";
-import { useSession } from "next-auth/react";
+
 import React from "react";
+import { Zap } from "lucide-react";
+
 import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
-import { Zap } from "lucide-react";
+
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
-type Props = {};
-
-const SubscriptionAction = (props: Props) => {
+const SubscriptionAction = () => {
   const { data } = useSession();
   const [loading, setLoading] = React.useState(false);
+  
   const handleSubscribe = async () => {
     setLoading(true);
+    
     try {
       const response = await axios.get("/api/stripe");
       window.location.href = response.data.url;

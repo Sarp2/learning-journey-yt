@@ -22,7 +22,11 @@ export type ChapterCardHandler = {
 };
 
 const ChapterCard = React.forwardRef<ChapterCardHandler, ChapterCardProps>(
-  ({ chapter, chapterIndex, setCompletedChapters, completedChapters }, ref) => {
+  ({ chapter, 
+    chapterIndex, 
+    setCompletedChapters, 
+    completedChapters 
+  }, ref) => {
     const { toast } = useToast();
     const [success, setSuccess] = React.useState<boolean | null>(null);
     const { mutate: getChapterInfo, isLoading } = useMutation({
